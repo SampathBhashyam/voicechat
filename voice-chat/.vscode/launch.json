@@ -1,0 +1,30 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "VoiceChat: Run Mock Agent",
+      "type": "python",
+      "request": "launch",
+      "module": "voicechat.cli.main",
+      "args": ["run-mock-agent", "--host", "127.0.0.1", "--port", "8001"],
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}/src"
+      }
+    },
+    {
+      "name": "VoiceChat: Run App (Mock)",
+      "type": "python",
+      "request": "launch",
+      "module": "voicechat.cli.main",
+      "args": ["run-app", "--agent-base-url", "http://127.0.0.1:8001", "--debug"],
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "env": {
+        "PYTHONPATH": "${workspaceFolder}/src",
+        "VOICECHAT_SESSION_ID": "vscode-debug"
+      }
+    }
+  ]
+}

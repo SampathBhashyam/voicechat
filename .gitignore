@@ -1,0 +1,16 @@
+# Python
+.venv/
+**/__pycache__/
+*.pyc
+
+# Environment files
+.env
+*.env.local
+
+# OS/editor
+.DS_Store
+
+# Build/test
+.pytest_cache/
+.coverage
+htmlcov/

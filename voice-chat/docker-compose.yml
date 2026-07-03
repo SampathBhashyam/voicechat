@@ -1,0 +1,23 @@
+services:
+  mock-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["voicechat", "run-mock-agent", "--host", "0.0.0.0", "--port", "8001"]
+    ports:
+      - "8001:8001"
+
+  voice-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["voicechat", "run-app", "--agent-base-url", "http://mock-agent:8001", "--debug"]
+    depends_on:
+      - mock-agent
+    stdin_open: true
+    tty: true
+    environment:
+      - VOICECHAT_AGENT_BASE_URL=http://mock-agent:8001
+      - VOICECHAT_SESSION_ID=compose-session
+      - VOICECHAT_BARGE_IN_POLICY=stop
+      - VOICECHAT_DEBUG=1

@@ -1,0 +1,22 @@
+services:
+  moshi-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: moshi-s2s-server
+    env_file:
+      - .env
+    environment:
+      - HF_TOKEN=${HF_TOKEN}
+      - MOSHI_HF_REPO=${MOSHI_HF_REPO}
+      - MOSHI_HOST=${MOSHI_HOST}
+      - MOSHI_PORT=${MOSHI_PORT}
+      - MOSHI_EXTRA_ARGS=${MOSHI_EXTRA_ARGS}
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+    ports:
+      - "${MOSHI_PORT:-8000}:${MOSHI_PORT:-8000}"
+      - "7860:7860"
+    gpus: all
+    stdin_open: true
+    tty: true
