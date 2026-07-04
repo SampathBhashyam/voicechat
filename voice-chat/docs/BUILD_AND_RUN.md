@@ -26,6 +26,8 @@ pip install -e '.[dev]'
 cp .env.example .env
 ```
 
+`voicechat run-app` automatically loads `.env` from the project root.
+
 Key variables:
 
 - `VOICECHAT_AGENT_BASE_URL`
@@ -40,6 +42,11 @@ Key variables:
 - `VOICECHAT_TTS_CHUNK_CHARS`
 - `VOICECHAT_MAX_INFLIGHT_REQUESTS`
 - `VOICECHAT_DEBUG`
+
+Current backend support in this build:
+
+- STT: `mock`
+- TTS: `mock`
 
 ## Jetson 8GB Profile Quick Start
 
@@ -59,10 +66,8 @@ voicechat run-app --agent-base-url "$VOICECHAT_AGENT_BASE_URL" --debug
 Using the preset file:
 
 ```bash
-set -a
-source config/jetson-8gb.env
-set +a
-voicechat run-app --profile jetson_8gb --agent-base-url "$VOICECHAT_AGENT_BASE_URL" --debug
+cp config/jetson-8gb.env .env
+voicechat run-app --profile jetson_8gb --debug
 ```
 
 Detailed tuning guide: [JETSON_8GB_PROFILE.md](JETSON_8GB_PROFILE.md)

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import asyncio
 import logging
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from voicechat.adapters.interfaces import STTEngine, TTSEngine
 from voicechat.agent.client import AgentClient
@@ -19,9 +19,10 @@ class SessionOrchestrator:
     audio_out: AudioOutput
     session_id: str
     barge_in_policy: str = "stop"
+    _tts_task: asyncio.Task[None] | None = field(init=False, default=None, repr=False)
 
     def __post_init__(self) -> None:
-        self._tts_task: asyncio.Task[None] | None = None
+        self._tts_task = None
 
     async def handle_audio_chunk(self, audio_chunk: bytes) -> str | None:
         events = await self.stt.transcribe(audio_chunk)

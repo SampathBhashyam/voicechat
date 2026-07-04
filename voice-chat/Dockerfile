@@ -6,6 +6,6 @@ COPY pyproject.toml README.md /app/
 COPY src /app/src
 
 RUN pip install --no-cache-dir --upgrade pip \
-    && pip install --no-cache-dir -e .
+    && pip install --no-cache-dir .
 
 CMD ["voicechat", "run-app", "--agent-base-url", "http://mock-agent:8001"]

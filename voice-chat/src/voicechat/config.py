@@ -14,9 +14,9 @@ _PROFILE_DEFAULTS: dict[str, dict[str, str]] = {
         "max_inflight_requests": "2",
     },
     "jetson_8gb": {
-        "stt_backend": "whisper_cpp",
+        "stt_backend": "mock",
         "stt_model": "tiny.en-q5_1",
-        "tts_backend": "piper",
+        "tts_backend": "mock",
         "sample_rate_hz": "16000",
         "audio_frame_ms": "20",
         "tts_chunk_chars": "120",

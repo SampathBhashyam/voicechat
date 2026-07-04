@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 import logging
 import wave
 from io import BytesIO
@@ -30,5 +31,8 @@ class AudioOutput:
             return
 
         logger.debug("audio_out.play frames=%d sample_rate=%d", len(audio), sample_rate)
+        await asyncio.to_thread(self._play_blocking, audio, sample_rate)
+
+    def _play_blocking(self, audio: np.ndarray, sample_rate: int) -> None:
         self._sd.play(audio, sample_rate)
         self._sd.wait()

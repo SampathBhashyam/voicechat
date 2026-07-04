@@ -17,13 +17,18 @@ VOICECHAT_RUNTIME_PROFILE=jetson_8gb
 
 ## Recommended Settings
 
-- `VOICECHAT_STT_BACKEND=whisper_cpp`
+- `VOICECHAT_STT_BACKEND=mock`
 - `VOICECHAT_STT_MODEL=tiny.en-q5_1`
-- `VOICECHAT_TTS_BACKEND=piper`
+- `VOICECHAT_TTS_BACKEND=mock`
 - `VOICECHAT_SAMPLE_RATE_HZ=16000`
 - `VOICECHAT_AUDIO_FRAME_MS=20`
 - `VOICECHAT_TTS_CHUNK_CHARS=120`
 - `VOICECHAT_MAX_INFLIGHT_REQUESTS=1`
+
+Target production overrides (not yet implemented in this codebase):
+
+- `VOICECHAT_STT_BACKEND=whisper_cpp`
+- `VOICECHAT_TTS_BACKEND=piper`
 
 ## Resource Limits (Operational Guidance)
 
@@ -56,10 +61,8 @@ voicechat run-app --agent-base-url http://<windows-gpu-host-ip>:8001 --debug
 Preset file workflow:
 
 ```bash
-set -a
-source config/jetson-8gb.env
-set +a
-voicechat run-app --profile jetson_8gb --agent-base-url "$VOICECHAT_AGENT_BASE_URL" --debug
+cp config/jetson-8gb.env .env
+voicechat run-app --profile jetson_8gb --debug
 ```
 
 ## Notes
@@ -67,4 +70,5 @@ voicechat run-app --profile jetson_8gb --agent-base-url "$VOICECHAT_AGENT_BASE_U
 - This profile sets runtime defaults in `voicechat.config.AppConfig`.
 - `--profile jetson_8gb` sets `VOICECHAT_RUNTIME_PROFILE` for the current run.
 - Any explicit environment variable overrides profile defaults.
+- `.env` is loaded automatically at app startup.
 - For Bluetooth headset validation on Jetson, run in host mode instead of Docker.

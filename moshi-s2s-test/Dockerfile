@@ -16,8 +16,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 RUN python3 -m pip install --upgrade pip setuptools wheel
 
-# Moshi package + runtime utilities.
-RUN python3 -m pip install moshi huggingface_hub[cli]
+# Moshi package + runtime utilities (pinned for reproducible builds).
+RUN python3 -m pip install \
+    moshi==0.2.13 \
+    'huggingface_hub[cli]==1.21.0'
 
 WORKDIR /app
 

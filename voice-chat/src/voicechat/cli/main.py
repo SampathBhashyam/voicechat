@@ -6,9 +6,9 @@ import logging
 import os
 
 import uvicorn
+from dotenv import load_dotenv
 
-from voicechat.adapters.stt import MockSTTEngine
-from voicechat.adapters.tts import MockTTSEngine
+from voicechat.adapters.factory import create_stt_engine, create_tts_engine
 from voicechat.agent.client import AgentClient
 from voicechat.audio.io import AudioOutput
 from voicechat.config import AppConfig
@@ -42,8 +42,8 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 async def run_interactive(config: AppConfig) -> None:
-    stt = MockSTTEngine()
-    tts = MockTTSEngine()
+    stt = create_stt_engine(config.stt_backend)
+    tts = create_tts_engine(config.tts_backend)
     agent = AgentClient(base_url=config.agent_base_url)
     audio_out = AudioOutput()
 
@@ -83,6 +83,7 @@ def main() -> None:
     if args.profile:
         os.environ["VOICECHAT_RUNTIME_PROFILE"] = args.profile
 
+    load_dotenv(override=False)
     config = AppConfig.from_env()
     if args.agent_base_url:
         config.agent_base_url = args.agent_base_url
@@ -91,6 +92,13 @@ def main() -> None:
     config.debug = bool(args.debug or config.debug)
 
     setup_logging(config.debug)
+    logger.info(
+        "runtime profile=%s stt_backend=%s tts_backend=%s agent_base_url=%s",
+        config.runtime_profile,
+        config.stt_backend,
+        config.tts_backend,
+        config.agent_base_url,
+    )
     asyncio.run(run_interactive(config))
 
 

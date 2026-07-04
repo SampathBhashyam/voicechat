@@ -60,6 +60,11 @@ Status legend: `[ ]` pending, `[~]` in progress, `[x]` done, `[!]` blocked
 - Added `jetson_8gb` runtime profile defaults in app config and docs.
 - Added `config/jetson-8gb.env` preset and CLI `--profile` switch.
 - Performed docs QA pass and added beginner-friendly Python onboarding guide.
+- Ran principal-engineer review and fixed must-fix issues:
+- Fixed `SessionOrchestrator` slots/dataclass init crash.
+- Added backend factory selection with explicit unsupported-backend errors.
+- Made audio playback non-blocking using `asyncio.to_thread`.
+- Added automatic `.env` loading at CLI startup and aligned docs.
 - Added unit and integration tests in `tests/`.
 - Validation run completed:
 - `python3 -m compileall src tests` passed.

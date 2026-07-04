@@ -20,7 +20,7 @@ If not installed, install Python 3.11+ and rerun the command.
 ## 2) Go to the Project Folder
 
 ```bash
-cd /Users/sampath/Dev/VoiceChat/voice-chat
+cd <cloned-repo>/voice-chat
 ```
 
 ## 3) Create a Virtual Environment
